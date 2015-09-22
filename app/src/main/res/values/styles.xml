@@ -1,0 +1,10 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="WeatherAndroidTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <!--   <item name="android:windowBackground">@drawable/background</item> -->
+        <item name="android:windowBackground">@color/blueBackground</item>
+    </style>
+
+</resources>

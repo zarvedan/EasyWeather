@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/home/zarvedan/AndroidStudioProjects/WeatherAndroid/app/libs/volley.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="0cf1c6a66dc87dc0447cad9105bf913dc55c6f24">
+        <dex dex="/home/zarvedan/AndroidStudioProjects/WeatherAndroid/app/build/intermediates/pre-dexed/debug/volley-8207447eef28c72531918f0b8cc3616e691454c3.jar" />
+    </item>
+    <item
+        jar="/home/zarvedan/AndroidStudioProjects/WeatherAndroid/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/19.1.0/classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="3499ceba05ca1f6037c6a2fad73df8f636224a28">
+        <dex dex="/home/zarvedan/AndroidStudioProjects/WeatherAndroid/app/build/intermediates/pre-dexed/debug/classes-af28296ccf6c2273bd61031e0b95f8688e9b746d.jar" />
+    </item>
+    <item
+        jar="/home/zarvedan/Android/Sdk/extras/android/m2repository/com/android/support/support-v4/19.1.0/support-v4-19.1.0.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="85f201b380937e61a9dce6ca90ccf6872abbfb67">
+        <dex dex="/home/zarvedan/AndroidStudioProjects/WeatherAndroid/app/build/intermediates/pre-dexed/debug/support-v4-19.1.0-29b5ca4cca7645e0906a81a10e28c6c9f098922a.jar" />
+    </item>
+
+</items>
