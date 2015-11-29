@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">EasyWeather</string>
+    <string name="action_settings">Paramètres</string>
+    <string name="AddActivityTitle">Rechercher une ville</string>
+    <string name="villes_favorites">Villes favorites</string>
+    <string name="meteo">Météo</string>
+
+    <string name="ajouter_ville">Ajouter une ville</string>
+
+    <color name="blueBackground">#5FCBE5</color>
+    <color name="grayBackground">#C5CFD2</color>
+    <color name="turquoiseBackground">#50ACC3</color>
+
+</resources>
