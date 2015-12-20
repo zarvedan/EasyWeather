@@ -2,17 +2,11 @@ package com.zarvedan.easyweather.gps;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,52 +17,36 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.zarvedan.easyweather.R;
+import com.zarvedan.easyweather.datas.InfosMeteo;
 import com.zarvedan.easyweather.datas.VariablesGlobales;
+import com.zarvedan.easyweather.ui.activity.MainActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.ArrayList;
 
 /**
  * Created by andre on 29/11/15.
  */
 public class GPS {
 
-    public VariablesGlobales mVariablesGlobales;
     public Context mContext;
     public Activity mActivity;
+    public RequestQueue queue;
 
 
-    private TextView temp;
-    private TextView minTemp;
-    private TextView maxTemp;
-    private TextView ville;
-    private TextView pression;
-    private TextView humidite;
-    private TextView description;
-    private ImageView image;
-    private TextView date;
+    public static JSONObject mObjTemp = null;
+    public static JSONArray mArrTemp = null;
 
-    private String cityStr ;
-    private String tempStr ;
-    private String minTempStr ;
-    private String maxTempStr ;
-    private String pressStr ;
-    private String humStr ;
-    private String descrStr;
-    private String iconStr ;
-    private  String dateStr;
+    public static JsonObjectRequest jsObjRequest;
 
-
-
+    public static ArrayList<InfosMeteo> mListInfosMeteo = new ArrayList<InfosMeteo>();
 
     public void recupererDonneesGps(Context contextRecu) {
         this.mContext = contextRecu;
-        this.mActivity = (Activity) contextRecu;
-        mVariablesGlobales = new VariablesGlobales();
+        this.mActivity = (MainActivity) contextRecu;
         LocationManager locationManager;
         String svcName = Context.LOCATION_SERVICE;
         locationManager = (LocationManager) mContext.getSystemService(svcName);
@@ -82,11 +60,15 @@ public class GPS {
         criteria.setCostAllowed(true);
 
         String provider1 = locationManager.getBestProvider(criteria, true);
-        Location l = locationManager.getLastKnownLocation(provider1);
+        try {
+            Location l = locationManager.getLastKnownLocation(provider1);
 
-        locationManager.requestLocationUpdates(provider1, 2000, 10, locationListener);
+            locationManager.requestLocationUpdates(provider1, 2000, 10, locationListener);
 
-        loadDatasWithCoord(l);
+            loadDatasWithCoord(l);
+        } catch (SecurityException e) {
+            e.printStackTrace();
+        }
     }
 
     private final LocationListener locationListener = new LocationListener() {
@@ -115,11 +97,10 @@ public class GPS {
 
     public void loadDatasWithCityName(String villeStr) {
         String villeStrModif = villeStr.replace(" ", "-");
+        String url = "http://api.openweathermap.org/data/2.5/forecast/daily?q=" + villeStrModif + "&mode=json&APPID=" + VariablesGlobales.APIKEY + "&units=metric&cnt=" + VariablesGlobales.JOURS_PREVISIONS;
+        queue = Volley.newRequestQueue(mContext);
 
-        String url = "http://api.openweathermap.org/data/2.5/weather?q=" + villeStrModif + ",fr&APPID=" + mVariablesGlobales.getAPIKEY() + "&units=metric";
-        RequestQueue queue = Volley.newRequestQueue(mContext);
-
-        final JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+        jsObjRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -129,8 +110,6 @@ public class GPS {
             @Override
             public void onErrorResponse(VolleyError error) {
                 System.out.println("Erreur [" + error + "]");
-                //final TextView ville = (TextView) findViewById(R.id.ville);
-                //ville.setText("Problème d'accès au serveur");
                 Toast.makeText(mContext, "Problème serveur ou ville inexistante", Toast.LENGTH_LONG).show();
             }
         }
@@ -141,72 +120,17 @@ public class GPS {
 
     public void updateDatas(JSONObject response) {
 
-        // on récupère tous les éléments de notre UI pour pouvoir les mettre à jour
-        temp = (TextView) mActivity.findViewById(R.id.temp_text);
-        minTemp = (TextView) mActivity.findViewById(R.id.min_text);
-        maxTemp = (TextView) mActivity.findViewById(R.id.max_text);
-        ville = (TextView) mActivity.findViewById(R.id.ville);
-        pression = (TextView) mActivity.findViewById(R.id.pression_text);
-        humidite = (TextView) mActivity.findViewById(R.id.humidite_text);
-        description = (TextView) mActivity.findViewById(R.id.description);
-        image = (ImageView) mActivity.findViewById(R.id.image);
-        date = (TextView) mActivity.findViewById(R.id.date);
-
-
-        dateStr = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
-
-        JSONObject ObjTemp = null;
-        JSONArray ArrTemp = null;
-
         try {
-
-            cityStr = response.getString("name");
-            ArrTemp = response.getJSONArray("weather");
-
-            iconStr = "pic" + ArrTemp.getJSONObject(0).getString("icon");
-            if (iconStr.charAt(iconStr.length() - 1) == 'n') {
-                iconStr = iconStr.replace('n', 'd');
+            mArrTemp = response.getJSONArray("list");
+            mListInfosMeteo.clear();
+            for (int i = 0; i < VariablesGlobales.JOURS_PREVISIONS; i++) {
+                mObjTemp = (JSONObject) mArrTemp.get(i);
+                mListInfosMeteo.add(new InfosMeteo(mObjTemp));
             }
-
-            Log.w("Main", "IconStr: " + iconStr);
-            descrStr = ArrTemp.getJSONObject(0).getString("description");
-
-            ObjTemp = response.getJSONObject("main");
-            tempStr = ObjTemp.getString("temp");
-            minTempStr = ObjTemp.getString("temp_min");
-            maxTempStr = ObjTemp.getString("temp_max");
-            pressStr = ObjTemp.getString("pressure");
-            humStr = ObjTemp.getString("humidity");
-
-
-            Log.w("Main", "CATCH response vaut:" + response.toString());
-
+            ((MainActivity) mActivity).updateCompleteDisplay(mListInfosMeteo, response.getJSONObject("city").getString("name"));
         } catch (JSONException e) {
-            Log.w("Main", "CATCH response dans exception vaut:" + response.toString());
-
+            e.printStackTrace();
         }
-
-        Double i = Double.parseDouble(tempStr);
-        Integer j = (int) Math.round(i);
-        temp.setText(j.toString() + " °C");
-        minTemp.setText(minTempStr + " °C");
-        maxTemp.setText(maxTempStr + " °C");
-        ville.setText(cityStr);
-        description.setText(descrStr);
-        humidite.setText(humStr + " %");
-        pression.setText(pressStr + " hPa");
-        date.setText(dateStr);
-
-        // on récupère le drawable intitulé comme iconStr pour le mettre à jour notre ImageView
-        int id = mContext.getResources().getIdentifier(iconStr, "drawable", mContext.getPackageName());
-
-
-        // On redimensionne l'icone à afficher
-        Drawable picDrawable = mContext.getResources().getDrawable(id);
-        Bitmap bitmap = ((BitmapDrawable) picDrawable).getBitmap();
-        Drawable picDrawableResized = new BitmapDrawable(mContext.getResources(), Bitmap.createScaledBitmap(bitmap, 300, 300, true));
-        image.setImageDrawable(picDrawableResized);
-
     }
 
     ///////////////////////////////////////////////////////////////////////////////////
@@ -224,11 +148,11 @@ public class GPS {
             String latStr = df.format(lat);
             String lonStr = df.format(lon);
 
-            String url = "http://api.openweathermap.org/data/2.5/weather?lat=" + latStr + "&lon=" + lonStr + "&APPID=" + mVariablesGlobales.getAPIKEY() + "&units=metric";
-            Log.w("Main", url);
-            RequestQueue queue = Volley.newRequestQueue(mContext);
+            String url = "http://api.openweathermap.org/data/2.5/forecast/daily?lat=" + latStr + "&lon=" + lonStr + "&APPID=" + VariablesGlobales.APIKEY + "&units=metric&cnt=" + VariablesGlobales.JOURS_PREVISIONS;
 
-            final JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+            queue = Volley.newRequestQueue(mContext);
+
+            jsObjRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
@@ -243,7 +167,6 @@ public class GPS {
                 }
             }
             );
-
             queue.add(jsObjRequest);
         }
     }

@@ -1,60 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingBottom="0dp"
-        android:paddingLeft="0dp"
-        android:paddingRight="0dp"
-        android:paddingTop="0dp"
-        tools:context=".ui.activity.MainActivity"
-    android:id="@+id/maVue2">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/maVue2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="0dp"
+    android:paddingLeft="0dp"
+    android:paddingRight="0dp"
+    android:paddingTop="0dp"
+    tools:context=".ui.activity.MainActivity">
 
-    <FrameLayout
+    <RelativeLayout
+        android:id="@+id/barre2"
         android:layout_width="fill_parent"
-        android:layout_alignParentTop="true"
-        android:layout_height="50dp"
-        android:foreground="@color/grayBackground"></FrameLayout>
-
-    <Button
-        android:id="@+id/retour"
-        android:layout_alignParentLeft="true"
-        android:layout_width="80dp"
-        android:layout_height="40dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:onClick="retourMainActivity"
-        android:text="retour" />
-
-    <TextView
-        android:id="@+id/titre"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/villes_favorites"
-        android:textSize="20dp"
-        android:layout_marginTop="15dp"
-        android:layout_centerHorizontal="true"
-        android:textColor="#000000" />
+        android:background="@color/grayBackground">
 
-    <Button
-        android:id="@+id/ajouter"
-        android:layout_alignParentRight="true"
-        android:layout_width="50dp"
-        android:layout_height="40dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
-        android:onClick="ajouterVille"
-        android:text="+" />
+        <Button
+            android:id="@+id/retour"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="7dp"
+            android:layout_marginLeft="10dp"
+            android:drawableLeft="@android:drawable/ic_menu_revert"
+            android:onClick="retourMainActivity" />
 
+        <TextView
+            android:id="@+id/titre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="@string/villes_favorites"
+            android:textColor="#000000"
+            android:textSize="20dp" />
+
+        <Button
+            android:id="@+id/ajouter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="7dp"
+            android:layout_marginRight="10dp"
+
+            android:drawableLeft="@android:drawable/ic_input_add"
+            android:onClick="ajouterVille" />
+    </RelativeLayout>
 
     <ListView
-        android:id="@+id/listeVilles"
-        android:layout_below="@id/ajouter"
-        android:layout_alignParentRight="true"
-        android:cacheColorHint="#ffffff"
+        android:id="@+id/liste_villes"
         android:layout_width="fill_parent"
-        android:layout_height="400dp" >
-    </ListView>
+        android:layout_height="400dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/barre2"
+        android:cacheColorHint="#ffffff"></ListView>
 
 </RelativeLayout>

@@ -31,7 +31,12 @@ public class AddCityActivity extends Activity {
     public AlertDialog.Builder dialogBoxCityToDelete;
     public ArrayList<String> listVilles;
     public ArrayAdapter<String> adapter;
-    VillesBDD villeBdd;
+    public VillesBDD villeBdd = new VillesBDD(this);
+    public SQLiteDatabase bdd;
+
+    public ListView lv;
+    public VillesBDD.Ville villeTmp = new VillesBDD.Ville();
+    public View alertDialogView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -40,14 +45,12 @@ public class AddCityActivity extends Activity {
 
         initSwipe();
 
-        villeBdd = new VillesBDD(this);
-        final ListView lv = (ListView) findViewById(R.id.listeVilles);
+        lv = (ListView) findViewById(R.id.liste_villes);
         listVilles = new ArrayList<String>();
         adapter = new ArrayAdapter(AddCityActivity.this, android.R.layout.simple_list_item_1, listVilles);
 
         villeBdd.open();
 
-        SQLiteDatabase bdd;
         bdd = villeBdd.getBDD();
         long dbSize = DatabaseUtils.queryNumEntries(bdd, "table_villes");
         int dbSizeInt = (int) dbSize;
@@ -73,9 +76,9 @@ public class AddCityActivity extends Activity {
 
                 Intent returnIntent = new Intent();
                 returnIntent.putExtra("result", s);
-                setResult(MainActivity.LISTEVILLES, returnIntent);
+                setResult(MainActivity.ACTION_LISTEVILLES, returnIntent);
                 finish();
-                overridePendingTransition( R.anim.activity_back_in, R.anim.activity_back_out);
+                overridePendingTransition(R.anim.activity_back_in, R.anim.activity_back_out);
             }
         });
 
@@ -99,8 +102,6 @@ public class AddCityActivity extends Activity {
 
 
     public void retourMainActivity(View v) {
-        //Intent mainActivite = new Intent(AddCityActivity.this, MainActivity.class);
-        //startActivity(mainActivite);
         finish();
     }
 
@@ -110,7 +111,7 @@ public class AddCityActivity extends Activity {
 
         //On instancie notre layout en tant que View
         LayoutInflater factory = LayoutInflater.from(this);
-        final View alertDialogView = factory.inflate(R.layout.alert_dialog, null);
+        alertDialogView = factory.inflate(R.layout.alert_dialog, null);
 
         //On affecte la vue personnalisé que l'on a crée à notre AlertDialog
         dialogBoxNewCity.setView(alertDialogView);
@@ -149,9 +150,9 @@ public class AddCityActivity extends Activity {
 
     public void initAlertDialogLongClick(final int id) {
         villeBdd.open();
-        final ListView lv = (ListView) findViewById(R.id.listeVilles);
+        lv = (ListView) findViewById(R.id.liste_villes);
         String s = (String) (lv.getItemAtPosition(id));
-        final VillesBDD.Ville villeTmp = villeBdd.getVilleWithNom(s);
+        villeTmp = villeBdd.getVilleWithNom(s);
         if (villeTmp.getNom() != null) {
             final String nom = villeTmp.getNom();
             dialogBoxCityToDelete = new AlertDialog.Builder(this);
@@ -178,7 +179,6 @@ public class AddCityActivity extends Activity {
     public void initSwipe() {
         View maVue;
         maVue = findViewById(R.id.maVue2);
-
         maVue.setOnTouchListener(new OnSwipeTouchListener(this) {
             @Override
             public void onSwipeRight() {
@@ -197,7 +197,6 @@ public class AddCityActivity extends Activity {
 
     public void updateListFromDB() {
 
-        SQLiteDatabase bdd;
         bdd = villeBdd.getBDD();
         long dbSize = DatabaseUtils.queryNumEntries(bdd, "table_villes");
         int dbSizeInt = (int) dbSize;
@@ -221,6 +220,6 @@ public class AddCityActivity extends Activity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        overridePendingTransition( R.anim.activity_back_in, R.anim.activity_back_out);
+        overridePendingTransition(R.anim.activity_back_in, R.anim.activity_back_out);
     }
 }

@@ -3,183 +3,172 @@
     android:id="@+id/accueil_vue"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/blueBackground"
     android:paddingBottom="0dp"
     android:paddingLeft="0dp"
     android:paddingRight="0dp"
     android:paddingTop="0dp"
     tools:context=".ui.activity.MainActivity">
 
-    <FrameLayout
+    <RelativeLayout
+        android:id="@+id/barre1"
         android:layout_width="fill_parent"
-        android:layout_height="50dp"
-        android:layout_alignParentTop="true"
-        android:background="@color/grayBackground"></FrameLayout>
+        android:layout_height="wrap_content"
+        android:background="@color/grayBackground">
 
-        <ImageView
-            android:id="@+id/update"
-            android:layout_marginTop="10dp"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+        <Button
+            android:id="@+id/gps"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="10dp"
-            android:onClick="recupererDonneesGpsUpdate"
-            android:src="@android:drawable/ic_menu_mylocation"
-            />
+            android:layout_marginTop="10dp"
+            android:drawableLeft="@android:drawable/ic_menu_mylocation"
+            android:onClick="recupererDonneesGpsUpdate" />
+
         <TextView
-            android:id="@+id/titre"
+            android:id="@+id/ville"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
-            android:text="@string/meteo"
+            android:layout_centerVertical="true"
+            android:text="Ville"
             android:textColor="#000000"
-            android:textSize="20dp" />
+            android:textSize="22dp"
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/boutonVilles"
-            android:layout_marginTop="10dp"
-            android:layout_width="60dp"
-            android:layout_height="40dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"
-            android:onClick="rechercheVille"
-            android:text="Villes"
-            android:textSize="15dp" />
+            android:layout_marginTop="10dp"
+            android:drawableLeft="@android:drawable/btn_star_big_off"
+            android:onClick="rechercheVille" />
 
+    </RelativeLayout>
 
-
-<TextView
-        android:id="@+id/ville"
+    <RelativeLayout
+        android:id="@+id/infos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@id/boutonVilles"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="30dp"
-        android:text="Ville"
-        android:textColor="#ffffff"
-        android:textSize="20dp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/ville"
-        android:layout_marginLeft="10dp"
-        android:textColor="#ffffff"
-        android:textSize="15dp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/temp_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/ville"
-        android:layout_marginRight="20dp"
-        android:textColor="#ffffff"
-        android:textSize="30dp"
-        android:textStyle="bold" />
+        android:layout_below="@id/barre1">
 
 
-    <ImageView
-        android:id="@+id/image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_below="@id/ville"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="150dp" />
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="10dp"
+            android:text="Aujourd'hui"
+            android:textColor="#ffffff"
+            android:textSize="30dp"
+            android:textStyle="bold" />
 
-    <FrameLayout
+        <TextView
+            android:id="@+id/temp_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:textColor="#ffffff"
+            android:textSize="30dp"
+            android:textStyle="bold" />
+
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            android:src="@drawable/picna" />
+
+        <TextView
+            android:id="@+id/humidity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/image"
+            android:layout_marginTop="10dp"
+            android:text="Humidité "
+            android:textColor="#ffffff" />
+
+        <TextView
+            android:id="@+id/humidite_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/humidity"
+            android:layout_toRightOf="@id/humidity"
+            android:textColor="#ffffff" />
+
+
+        <TextView
+            android:id="@+id/min"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@id/temp_text"
+            android:layout_below="@id/temp_text"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="10dp"
+            android:text="min : "
+            android:textColor="#ffffff" />
+
+        <TextView
+            android:id="@+id/min_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_alignEnd="@+id/temp_text"
+            android:layout_alignRight="@+id/temp_text"
+            android:layout_alignTop="@+id/min"
+            android:textColor="#ffffff" />
+
+        <TextView
+            android:id="@+id/max"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@id/temp_text"
+            android:layout_below="@id/min"
+            android:layout_marginRight="30dp"
+            android:text="max : "
+            android:textColor="#ffffff" />
+
+        <TextView
+            android:id="@+id/max_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/humidite_text"
+            android:layout_alignLeft="@+id/min_text"
+            android:layout_alignStart="@+id/min_text"
+            android:layout_below="@id/min_text"
+            android:textColor="#ffffff" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/infos_supp"
         android:layout_width="fill_parent"
-        android:layout_height="180dp"
-        android:layout_alignParentBottom="true"
-        android:foreground="@color/turquoiseBackground"></FrameLayout>
+        android:layout_height="fill_parent"
+        android:layout_below="@id/infos"
+        android:background="@color/turquoiseBackground">
 
-    <TextView
-        android:id="@+id/description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="390dp"
-        android:textColor="#ffffff" />
+        <TextView
+            android:id="@+id/previsions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="@string/previsions"
+            android:textColor="#ffffff"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/humidity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/description"
-        android:layout_marginLeft="80dp"
-        android:layout_marginTop="30dp"
-        android:text="Humidité "
-        android:textColor="#ffffff" />
-
-    <TextView
-        android:id="@+id/humidite_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@id/humidity"
-        android:layout_marginLeft="30dp"
-        android:layout_toRightOf="@id/humidity"
-        android:textColor="#ffffff" />
-
-    <TextView
-        android:id="@+id/pression"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/humidity"
-        android:layout_marginLeft="80dp"
-        android:layout_marginTop="10dp"
-        android:text="Pression "
-        android:textColor="#ffffff" />
-
-    <TextView
-        android:id="@+id/pression_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@id/pression"
-        android:layout_marginLeft="30dp"
-        android:layout_toRightOf="@id/pression"
-        android:textColor="#ffffff" />
-
-    <TextView
-        android:id="@+id/min"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="70dp"
-        android:layout_marginTop="500dp"
-        android:text="min "
-        android:textColor="#ffffff" />
-
-    <TextView
-        android:id="@+id/min_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@id/min"
-        android:layout_toRightOf="@id/min"
-        android:textColor="#ffffff" />
-
-    <TextView
-        android:id="@+id/max"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="120dp"
-        android:layout_marginTop="500dp"
-        android:layout_toRightOf="@id/min"
-        android:text="max "
-        android:textColor="#ffffff" />
-
-    <TextView
-        android:id="@+id/max_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@id/max"
-        android:layout_toRightOf="@id/max"
-        android:textColor="#ffffff" />
-
-
+        <ListView
+            android:id="@+id/liste_previsions"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/previsions"/>
+        </RelativeLayout>
 </RelativeLayout>

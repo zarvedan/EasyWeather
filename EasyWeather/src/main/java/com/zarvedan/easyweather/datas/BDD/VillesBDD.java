@@ -94,17 +94,12 @@ public class VillesBDD {
         if (c.getCount() == 0)
             return null;
 
-        //Sinon on se place sur le premier élément
         c.moveToFirst();
-        //On créé un livre
         Ville ville = new Ville();
-        //on lui affecte toutes les infos grâce aux infos contenues dans le Cursor
         ville.setId(c.getInt(NUM_COL_ID));
         ville.setNom(c.getString(NUM_COL_NOM));
-        //On ferme le cursor
         c.close();
 
-        //On retourne le livre
         return ville;
     }
 
