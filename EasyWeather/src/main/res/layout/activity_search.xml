@@ -22,8 +22,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_marginTop="7dp"
             android:layout_marginLeft="10dp"
+            android:layout_marginTop="7dp"
             android:drawableLeft="@android:drawable/ic_menu_revert"
             android:onClick="retourMainActivity" />
 
@@ -42,19 +42,54 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="7dp"
             android:layout_marginRight="10dp"
+            android:layout_marginTop="7dp"
 
             android:drawableLeft="@android:drawable/ic_input_add"
             android:onClick="ajouterVille" />
     </RelativeLayout>
+<!--
+    <com.daimajia.swipe.SwipeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/sample1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/barre2">-->
 
-    <ListView
-        android:id="@+id/liste_villes"
-        android:layout_width="fill_parent"
-        android:layout_height="400dp"
-        android:layout_alignParentRight="true"
+    <com.sothree.slidinguppanel.SlidingUpPanelLayout
+        xmlns:sothree="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/sliding_layout"
+        android:layout_width="match_parent"
         android:layout_below="@id/barre2"
-        android:cacheColorHint="#ffffff"></ListView>
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        sothree:umanoPanelHeight="68dp"
+        sothree:umanoShadowHeight="4dp">
 
+        <ListView
+            android:id="@+id/liste_villes"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:cacheColorHint="#ffffff"></ListView>
+
+        <LinearLayout
+            android:id="@+id/layout"
+            android:layout_width="match_parent"
+            android:layout_gravity="bottom"
+            android:layout_height="500dp"
+            android:background="#ffffff"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:text="flgkfmlgkdlmfgk"
+                android:textSize="35sp" />
+        </LinearLayout>
+
+        <!-- Surface View End -->
+    <!--</com.daimajia.swipe.SwipeLayout>-->
+    </com.sothree.slidinguppanel.SlidingUpPanelLayout>
 </RelativeLayout>

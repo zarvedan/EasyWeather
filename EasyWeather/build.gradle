@@ -17,8 +17,8 @@ android {
             resValue "string", "app_name", "EasyWeather"
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-        debug{
-           resValue "string", "app_name", "dev" + defaultConfig.versionName + " EasyWeather"
+        debug {
+            resValue "string", "app_name", "dev" + defaultConfig.versionName + " EasyWeather"
         }
     }
     productFlavors {
@@ -30,4 +30,10 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.+'
     compile 'com.facebook.stetho:stetho:1.2.0'
     compile files('libs/volley.jar')
+    compile 'com.android.support:recyclerview-v7:23.0.0'
+    compile 'com.android.support:support-v4:23.+'
+    compile "com.daimajia.swipelayout:library:1.2.0@aar"
+    compile 'com.sothree.slidinguppanel:library:3.3.0'
+
+    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha1'
 }

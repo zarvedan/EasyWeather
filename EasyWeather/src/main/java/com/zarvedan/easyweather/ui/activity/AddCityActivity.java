@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.daimajia.swipe.SwipeLayout;
 import com.zarvedan.easyweather.R;
 import com.zarvedan.easyweather.datas.BDD.VillesBDD;
 import com.zarvedan.easyweather.ui.OnSwipeTouchListener;
@@ -49,6 +50,44 @@ public class AddCityActivity extends Activity {
         listVilles = new ArrayList<String>();
         adapter = new ArrayAdapter(AddCityActivity.this, android.R.layout.simple_list_item_1, listVilles);
 
+//        SwipeLayout swipeLayout =  (SwipeLayout)findViewById(R.id.sample1);
+//
+////set show mode.
+//        swipeLayout.setShowMode(SwipeLayout.ShowMode.LayDown);
+////add drag edge.(If the BottomView has 'layout_gravity' attribute, this line is unnecessary)
+//        swipeLayout.addDrag(SwipeLayout.DragEdge.Top, findViewById(R.id.layout));
+//        swipeLayout.addSwipeListener(new SwipeLayout.SwipeListener() {
+//
+//                                         @Override
+//                                         public void onStartOpen(SwipeLayout layout) {
+//
+//                                         }
+//
+//                                         @Override
+//                                         public void onOpen(SwipeLayout layout) {
+//
+//                                         }
+//
+//                                         @Override
+//                                         public void onStartClose(SwipeLayout layout) {
+//
+//                                         }
+//
+//                                         @Override
+//                                         public void onClose(SwipeLayout layout) {
+//
+//                                         }
+//
+//                                         @Override
+//                                         public void onUpdate(SwipeLayout layout, int leftOffset, int topOffset) {
+//
+//                                         }
+//
+//                                         @Override
+//                                         public void onHandRelease(SwipeLayout layout, float xvel, float yvel) {
+//
+//                                         }
+//                                     });
         villeBdd.open();
 
         bdd = villeBdd.getBDD();
