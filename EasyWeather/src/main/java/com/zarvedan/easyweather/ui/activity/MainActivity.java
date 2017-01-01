@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
@@ -72,6 +73,7 @@ public class MainActivity extends Activity {
 //        dateStr = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
         listViewPrevisions = (ListView) findViewById(R.id.liste_previsions);
 
+
     }
 
     @Override
@@ -130,6 +132,9 @@ public class MainActivity extends Activity {
 
     }
 
+
+
+
     public void updateListView(ArrayList<InfosMeteo> listPrevisionsInfosMeteo) {
         adapter = new AdapterPrevisions(MainActivity.this, listPrevisionsInfosMeteo);
         listViewPrevisions.setAdapter(adapter);
@@ -174,7 +179,7 @@ public class MainActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void rechercheVille(View view) {
+    public void rechercheVille(View v) {
         Intent secondeActivite = new Intent(MainActivity.this, AddCityActivity.class);
         startActivityForResult(secondeActivite, ACTION_LISTEVILLES);
         overridePendingTransition(R.anim.activity_in, R.anim.activity_out);

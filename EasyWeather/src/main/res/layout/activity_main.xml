@@ -7,7 +7,11 @@
     android:paddingLeft="0dp"
     android:paddingRight="0dp"
     android:paddingTop="0dp"
+
+
     tools:context=".ui.activity.MainActivity">
+
+
 
     <RelativeLayout
         android:id="@+id/barre1"
@@ -36,7 +40,6 @@
             android:textColor="#000000"
             android:textSize="22dp"
             android:textStyle="bold" />
-
         <Button
             android:id="@+id/boutonVilles"
             android:layout_width="wrap_content"
@@ -53,6 +56,7 @@
         android:id="@+id/infos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@color/turquoiseBackground"
         android:layout_below="@id/barre1">
 
 
@@ -170,5 +174,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/previsions"/>
+
         </RelativeLayout>
+
+
 </RelativeLayout>

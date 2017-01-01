@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -49,6 +50,13 @@ public class AddCityActivity extends Activity {
         lv = (ListView) findViewById(R.id.liste_villes);
         listVilles = new ArrayList<String>();
         adapter = new ArrayAdapter(AddCityActivity.this, android.R.layout.simple_list_item_1, listVilles);
+
+        FloatingActionButton myFab = (FloatingActionButton)  findViewById(R.id.fab);
+        myFab.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                ajouterVille();
+            }
+        });
 
 //        SwipeLayout swipeLayout =  (SwipeLayout)findViewById(R.id.sample1);
 //
@@ -132,7 +140,7 @@ public class AddCityActivity extends Activity {
 
     }
 
-    public void ajouterVille(View v) {
+    public void ajouterVille() {
 
         initAlertDialogSimpleClick();
         dialogBoxNewCityVariable = dialogBoxNewCity.create();

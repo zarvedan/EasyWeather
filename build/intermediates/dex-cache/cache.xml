@@ -70,7 +70,7 @@
         jumboMode="true"
         optimize="true"
         revision="23.0.2"
-        sha1="b318710c2bfda7907a6b5ffc1b24e01690484e4e">
+        sha1="c868e8e46bdec5153141dee239194d351d2c6034">
         <dex dex="/home/andre/AndroidStudioProjects/WeatherAndroid/EasyWeather/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_cd29f3accfb5f97010694431e31d19ca6b48d3f6/classes.dex" />
     </item>
     <item
@@ -124,8 +124,17 @@
         jumboMode="true"
         optimize="true"
         revision="23.0.2"
-        sha1="aa0e9447a9e0f13975f9718223c70a1d6dd3c284">
+        sha1="925736dc0a57974a872ddbb90dae1873f469e5ce">
         <dex dex="/home/andre/AndroidStudioProjects/WeatherAndroid/EasyWeather/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_ab8ba0216fe114a75db0055702a164798359f447/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/andre/AndroidStudioProjects/WeatherAndroid/EasyWeather/build/intermediates/exploded-aar/com.android.support/design/23.1.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.2"
+        sha1="379471b2bd17d9737c050345c08e8c7d16589784">
+        <dex dex="/home/andre/AndroidStudioProjects/WeatherAndroid/EasyWeather/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-design-23.1.1_6261ac4184e77f3daf0b8ecedfdb43fc9b19d7a7/classes.dex" />
     </item>
     <item
         is-multidex="true"
