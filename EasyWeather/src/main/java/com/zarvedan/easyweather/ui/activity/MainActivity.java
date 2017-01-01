@@ -1,9 +1,13 @@
 package com.zarvedan.easyweather.ui.activity;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,17 +20,16 @@ import com.zarvedan.easyweather.R;
 import com.zarvedan.easyweather.datas.InfosMeteo;
 import com.zarvedan.easyweather.datas.VariablesGlobales;
 import com.zarvedan.easyweather.gps.GPS;
-import com.zarvedan.easyweather.ui.adapter.AdapterPrevisions;
 import com.zarvedan.easyweather.ui.OnSwipeTouchListener;
+import com.zarvedan.easyweather.ui.adapter.AdapterPrevisions;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 
 public class MainActivity extends Activity {
 
     public static int ACTION_LISTEVILLES = 1;
+    final public static int PERMISSION_CODE = 2;
     public VariablesGlobales mVariablesGlobales = new VariablesGlobales(this);
     public static GPS mGPS;
 
@@ -54,7 +57,8 @@ public class MainActivity extends Activity {
             mGPS = new GPS();
         }
 
-        mGPS.recupererDonneesGps(this);
+        checkPermission();
+
         initSwipe();
         // on récupère tous les éléments de notre UI pour pouvoir les mettre à jour
         temp = (TextView) findViewById(R.id.temp_text);
@@ -67,6 +71,62 @@ public class MainActivity extends Activity {
 //        date = (TextView) findViewById(R.id.date);
 //        dateStr = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
         listViewPrevisions = (ListView) findViewById(R.id.liste_previsions);
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case PERMISSION_CODE: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    mGPS.recupererDonneesGps(this);
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request
+        }
+    }
+
+
+    public void checkPermission() {
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.ACCESS_FINE_LOCATION)) {
+
+                // Show an explanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+
+            } else {
+
+                // No explanation needed, we can request the permission.
+
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        PERMISSION_CODE);
+
+                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+                // app-defined int constant. The callback method gets the
+                // result of the request.
+            }
+        }
+
 
     }
 
@@ -140,7 +200,7 @@ public class MainActivity extends Activity {
         ville.setText(listPrevisionsInfosMeteo.get(0).cityStr);
         humidite.setText(listPrevisionsInfosMeteo.get(0).humStr + " %");
         image.setImageDrawable(listPrevisionsInfosMeteo.get(0).picDrawableResized);
-        previsions.setText("Prévisions pour "+cityName);
+        previsions.setText("Prévisions pour " + cityName);
         ville.setText(cityName);
         updateListView(listPrevisionsInfosMeteo);
     }
